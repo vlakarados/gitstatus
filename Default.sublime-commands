@@ -1,0 +1,10 @@
+[
+  {
+    "caption": "GitStatus: Changed files",
+    "command": "git_changed"
+  },
+  {
+    "caption": "GitStatus: Unmerged files",
+    "command": "git_unmerged"
+  },
+]
