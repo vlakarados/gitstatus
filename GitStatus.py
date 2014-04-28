@@ -24,27 +24,29 @@ class GitStatusCommand(sublime_plugin.WindowCommand):
         self.check()
 
     def check(self):
-        clean = "nothing to commit, working directory clean"
-        dirty = "no changes added to commit"
+        clean     = "nothing to commit, working directory clean"
+        dirty     = "o changes added to commit"
         untracked = "nothing added to commit but untracked files present"
-        notgit = "fatal: Not a git repository (or any of the parent directories): .git"
+        notgit    = "ot a git repository"
 
         base_dir = self.window.folders()[0]
         os.chdir(base_dir)
+
         matches = subprocess.check_output(['git', 'status']).strip()
         matches = matches.decode('utf8', 'ignore').split("\n")
+        status  = matches[-1]
 
         view = sublime.active_window().active_view()
-        if matches[-1] == clean:
+        if clean in status:
             view.set_status('GitStatus', "Git: Clean")
-        elif matches[-1] == dirty:
+        elif dirty in status:
             view.set_status('GitStatus', "Git: Dirty")
-        elif matches[-1] == untracked:
+        elif untracked in status:
             view.set_status('GitStatus', "Git: Untracked")
-        elif matches[-1] == notgit:
+        elif notgit in status:
             view.set_status('GitStatus', "Git: Not git")
         else:
-            view.set_status('GitStatus', "Git: Error fetching info")
+            view.set_status('GitStatus', "Git: ?")
 
 class Gitter():
     def all(self, window, ftype=None):
