@@ -91,7 +91,7 @@ class Gitter():
 
     def selected(self, index):
         item = self.items[index]
-        fullpath = item[1] + item[0]
+        fullpath = item[1] + "/" + item[0]
         parts = fullpath.split(': ')
         parts.pop(0)
         fullpath = "".join(parts)
